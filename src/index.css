@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+}
+
+/* Define the dark variant for Tailwind v4 selector strategy */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans bg-slate-50 text-slate-900 antialiased transition-colors duration-300;
+  }
+
+  /* Robust dark mode overrides */
+  .dark body {
+    background-color: #020617 !important;
+    color: #f1f5f9 !important;
+  }
+}
