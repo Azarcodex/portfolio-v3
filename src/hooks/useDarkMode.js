@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 
 export const useDarkMode = () => {
     const [theme, setTheme] = useState(() => {
-        if (typeof window === 'undefined') return 'light';
+        if (typeof window === 'undefined') return 'dark';
         try {
-            return localStorage.getItem('theme') || 'light';
+            return localStorage.getItem('theme') || 'dark';
         } catch (e) {
-            return 'light';
+            return 'dark';
         }
     });
 
