@@ -39,9 +39,9 @@ const educationData = [
 
 const Education = () => {
     return (
-        <section id="education" className="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
+        <section id="education" className="py-24 bg-transparent transition-colors duration-300 relative overflow-hidden">
             {/* Top boundary line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
 
             <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
 
@@ -63,7 +63,7 @@ const Education = () => {
                         viewport={{ once: true }}
                         className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white leading-tight tracking-tighter"
                     >
-                        Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-teal-400">Excellence.</span>
+                        Education & <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-teal-400">Excellence.</span>
                     </motion.h2>
                 </div>
 
@@ -75,7 +75,7 @@ const Education = () => {
                             whileInView={{ height: '100%' }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, ease: "easeInOut" }}
-                            className="w-full bg-gradient-to-b from-indigo-500 via-teal-500 to-indigo-500"
+                            className="w-full bg-linear-to-b from-indigo-500 via-teal-500 to-indigo-500"
                         />
                     </div>
 
@@ -96,12 +96,12 @@ const Education = () => {
                                         whileHover={{ y: -5 }}
                                         className="w-full lg:w-[45%] group"
                                     >
-                                        <div className="bg-white dark:bg-slate-900/60 p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden backdrop-blur-sm">
+                                        <div className="bg-white dark:bg-slate-900/60 p-8 rounded-4xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none hover:border-indigo-500/30 transition-all duration-500 relative overflow-hidden backdrop-blur-sm">
                                             {/* Hover Glow */}
-                                            <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-3xl transition-opacity duration-500`} />
+                                            <div className={`absolute -right-10 -top-10 w-32 h-32 bg-linear-to-br ${item.color} opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-3xl transition-opacity duration-500`} />
 
                                             <div className="flex items-start justify-between mb-6">
-                                                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-12`}>
+                                                <div className={`w-12 h-12 rounded-2xl bg-linear-to-br ${item.color} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:rotate-12`}>
                                                     {item.icon}
                                                 </div>
                                                 <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">

@@ -40,7 +40,7 @@ const Preloader = ({ onComplete }) => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-slate-950 text-white"
+            className="fixed inset-0 z-10000 flex flex-col items-center justify-center bg-slate-950 text-white"
         >
             {/* Background Grain/Noise Effect */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
@@ -70,7 +70,7 @@ const Preloader = ({ onComplete }) => {
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
-                        className="absolute h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-[length:200%_100%] animate-gradient shadow-[0_0_15px_rgba(99,102,241,0.5)]"
+                        className="absolute h-full bg-linear-to-r from-indigo-500 via-purple-500 to-indigo-500 bg-size-[200%_100%] animate-gradient shadow-[0_0_15px_rgba(99,102,241,0.5)]"
                     />
                 </div>
 

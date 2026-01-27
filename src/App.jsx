@@ -10,6 +10,8 @@ import CustomCursor from './components/CustomCursor';
 import Background3D from './components/Background3D';
 import Education from './components/Education';
 import Preloader from './components/Preloader';
+import BackToTop from './components/BackToTop';
+import GridBackground from './components/GridBackground';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -31,6 +33,8 @@ function App() {
 
       <CustomCursor />
       <Background3D />
+      <GridBackground />
+      <BackToTop />
       <Header />
       <main>
         <Hero />

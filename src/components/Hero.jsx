@@ -17,14 +17,14 @@ const Hero = () => {
     const name = "Mohammed Azarin";
 
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 relative overflow-hidden pt-28 pb-32 transition-colors duration-300">
+        <section id="home" className="min-h-screen flex items-center justify-center bg-transparent relative overflow-hidden pt-28 pb-32 transition-colors duration-300">
 
             {/* Entrance Overlay */}
             <motion.div
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 0 }}
                 transition={{ duration: 1.5, delay: 2.5, ease: "easeInOut" }}
-                className="fixed inset-0 bg-black z-[60] pointer-events-none"
+                className="fixed inset-0 bg-black z-60 pointer-events-none"
             />
 
             {/* Background decoration */}
@@ -45,19 +45,19 @@ const Hero = () => {
                         </span>
                     </motion.div>
 
-                    <h1 className="text-4xl sm:text-5xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-8 cursor-default text-slate-900 dark:text-white px-2">
+                    <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold tracking-tight leading-[1.1] mb-8 cursor-default text-slate-900 dark:text-white px-2">
                         <motion.span
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                            className="block mb-2 text-2xl md:text-4xl text-slate-500 font-medium"
+                            className="block mb-2 text-xl md:text-3xl text-slate-500 font-medium"
                         >
                             Hi, I'm
                         </motion.span>
 
-                        <div className="flex flex-wrap justify-center overflow-hidden py-2 gap-x-[0.1em]">
+                        <div className="flex flex-wrap justify-center overflow-hidden py-2 gap-x-[0.3em]">
                             {name.split(" ").map((word, wordIdx) => (
-                                <div key={wordIdx} className="flex no-wrap">
+                                <div key={wordIdx} className="flex flex-nowrap whitespace-nowrap">
                                     {Array.from(word).map((letter, index) => (
                                         <motion.span
                                             key={index}

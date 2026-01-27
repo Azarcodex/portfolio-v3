@@ -39,7 +39,7 @@ const Work = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (
-        <section id="work" className="py-12 bg-slate-50 dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
+        <section id="work" className="py-12 bg-transparent transition-colors duration-300 relative overflow-hidden">
             <div className="absolute top-2 -left-2 text-[5rem] md:text-[6rem] font-bold text-slate-200/20 dark:text-slate-900/30 pointer-events-none select-none tracking-tighter">
                 WORK
             </div>
@@ -51,7 +51,7 @@ const Work = () => {
                         <span className="text-indigo-600 dark:text-indigo-400 font-bold text-[9px] tracking-widest uppercase">Portfolio</span>
                     </motion.div>
                     <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                        Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">Work.</span>
+                        Featured <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-purple-500">Work.</span>
                     </h2>
                 </div>
 
@@ -64,8 +64,8 @@ const Work = () => {
                                 onMouseEnter={() => setActiveIndex(index)}
                                 onClick={() => setActiveIndex(index)}
                                 className={`p-2.5 rounded-lg transition-all duration-200 border flex-shrink-0 w-[180px] lg:w-full text-left ${activeIndex === index
-                                        ? 'bg-white dark:bg-slate-900 border-indigo-500/40 shadow-sm'
-                                        : 'bg-transparent border-transparent hover:bg-slate-200/40 dark:hover:bg-slate-900/40'
+                                    ? 'bg-white dark:bg-slate-900 border-indigo-500/40 shadow-sm'
+                                    : 'bg-transparent border-transparent hover:bg-slate-200/40 dark:hover:bg-slate-900/40'
                                     }`}
                             >
                                 <div className="flex items-center gap-2.5">
@@ -119,7 +119,7 @@ const Work = () => {
                                         href={projects[activeIndex].links.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-gradient-to-r ${projects[activeIndex].color} text-white text-[9px] font-bold hover:brightness-105 active:scale-95 transition-all`}
+                                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-linear-to-r ${projects[activeIndex].color} text-white text-[9px] font-bold hover:brightness-105 active:scale-95 transition-all`}
                                     >
                                         GitHub Source <Github size={12} />
                                     </a>

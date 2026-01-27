@@ -29,9 +29,9 @@ const skills = [
 
 const About = () => {
     return (
-        <section id="about" className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
+        <section id="about" className="py-20 bg-transparent transition-colors duration-300 relative overflow-hidden">
             {/* Subtle Gradient Accent */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-linear-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
 
             <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
@@ -83,7 +83,7 @@ const About = () => {
                         transition={{ duration: 0.6 }}
                         className="w-full lg:w-[400px]"
                     >
-                        <div className="bg-slate-50 dark:bg-slate-900/50 p-6 md:p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+                        <div className="bg-slate-50 dark:bg-slate-900/50 p-6 md:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
                             <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-8 flex items-center gap-2">
                                 <span className="w-2 h-2 rounded-full bg-indigo-500" />
                                 Technical Proficiency

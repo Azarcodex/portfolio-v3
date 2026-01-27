@@ -57,15 +57,15 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300 relative overflow-hidden">
+        <section id="contact" className="py-20 bg-transparent transition-colors duration-300 relative overflow-hidden">
             {/* Top Border Line */}
-            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
+            <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-slate-200 dark:via-slate-800 to-transparent" />
 
             <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
 
                     {/* NARRATIVE SIDE */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -75,20 +75,20 @@ const Contact = () => {
                             Let's spark <br />
                             <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-teal-500">Innovation.</span>
                         </h2>
-                        
+
                         <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg mb-0 font-medium max-w-xl mx-auto lg:mx-0">
                             Ready to transform your vision into a scalable digital reality? Fill out the form below and I'll get back to you within 24 hours.
                         </p>
                     </motion.div>
 
                     {/* FORM SIDE */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="w-full lg:w-[55%] relative"
                     >
-                        <div className="bg-slate-50 dark:bg-slate-900/40 p-6 md:p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
+                        <div className="bg-slate-50 dark:bg-slate-900/40 p-6 md:p-8 rounded-5xl border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none relative overflow-hidden">
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="space-y-1.5">
@@ -133,9 +133,8 @@ const Contact = () => {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading'}
-                                    className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50 ring-offset-2 ring-indigo-500/20 hover:ring-4 ${
-                                        status === 'loading' ? 'bg-slate-200 dark:bg-slate-800 text-slate-400' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700'
-                                    }`}
+                                    className={`w-full py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50 ring-offset-2 ring-indigo-500/20 hover:ring-4 ${status === 'loading' ? 'bg-slate-200 dark:bg-slate-800 text-slate-400' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700'
+                                        }`}
                                 >
                                     {status === 'loading' ? (
                                         <Loader2 className="animate-spin" size={16} />
