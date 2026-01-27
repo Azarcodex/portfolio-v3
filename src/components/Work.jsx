@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Database, Layout, Sparkles } from 'lucide-react';
+import blogImg from '../assets/blog.jpg';
+import moneytrackImg from '../assets/moneytrack.jpg';
+import predictImg from '../assets/predict.jpg';
 
 const projects = [
     {
@@ -9,7 +12,7 @@ const projects = [
         description: 'A feature-rich blogging application with React and Redux Toolkit. Integrated Firebase for secure authentication.',
         tags: ['React', 'Firebase', 'Redux'],
         links: { github: 'https://github.com/Azarcodex/BlogApp' },
-        image: 'https://images.unsplash.com/photo-1546074177-ffdda98d214f?auto=format&fit=crop&w=800&q=80',
+        image: blogImg,
         color: 'from-blue-600 to-indigo-600',
         icon: <Layout className="w-3.5 h-3.5" />
     },
@@ -19,7 +22,7 @@ const projects = [
         description: 'Manage food budgets with real-time calculations and MongoDB persistence.',
         tags: ['MERN', 'Node.js', 'Chart.js'],
         links: { github: 'https://github.com/Azarcodex/Food-Expense-Track' },
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80',
+        image: moneytrackImg,
         color: 'from-emerald-500 to-teal-600',
         icon: <Database className="w-3.5 h-3.5" />
     },
@@ -29,7 +32,7 @@ const projects = [
         description: 'AI-driven application predicting health risks via machine learning.',
         tags: ['Django', 'Python', 'ML'],
         links: { github: 'https://github.com/Azarcodex/Lifestyledisease_predicting' },
-        image: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=800&q=80',
+        image: predictImg,
         color: 'from-rose-500 to-pink-600',
         icon: <Sparkles className="w-3.5 h-3.5" />
     },
