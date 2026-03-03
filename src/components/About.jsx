@@ -222,7 +222,7 @@ const SkillCard = ({ category, index }) => {
 const SkillsShowcase = () => {
   return (
     <section
-      id="skills"
+      id="about"
       className="py-24 md:py-32 bg-transparent transition-colors duration-300 relative overflow-hidden"
     >
       {/* Background Elements */}
