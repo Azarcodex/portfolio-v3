@@ -136,28 +136,21 @@ const skillsData = [
 const SkillCard = ({ category, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+      transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
       viewport={{ once: true, margin: "-100px" }}
       className="h-full group"
     >
       <div
-        className={`
-          relative h-full bg-slate-900/40 
-          border border-slate-800/60 rounded-3xl p-6 md:p-8
-          backdrop-blur-xl overflow-hidden
-          hover:border-slate-700 transition-all duration-500
-          shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.4)]
-          hover:-translate-y-1
-        `}
+        className={`glass-panel relative h-full p-6 md:p-8 overflow-hidden hover:-translate-y-1 hover:border-slate-600/50`}
       >
         {/* Animated Gradient Background Effect */}
         <div
           className={`
             absolute -top-32 -right-32 w-64 h-64 
             bg-linear-to-br ${category.color} opacity-[0.03] 
-            group-hover:opacity-20 transition-all duration-700 rounded-full blur-3xl
+            group-hover:opacity-20 transition-all duration-300 rounded-full blur-3xl
             group-hover:scale-150
           `}
         />
@@ -165,7 +158,7 @@ const SkillCard = ({ category, index }) => {
           className={`
             absolute -bottom-32 -left-32 w-64 h-64 
             bg-linear-to-br ${category.color} opacity-[0.02] 
-            group-hover:opacity-15 transition-all duration-700 rounded-full blur-3xl
+            group-hover:opacity-15 transition-all duration-300 rounded-full blur-3xl
             group-hover:scale-150
           `}
         />
@@ -223,7 +216,7 @@ const SkillsShowcase = () => {
   return (
     <section
       id="about"
-      className="py-24 md:py-32 bg-transparent transition-colors duration-300 relative overflow-hidden"
+      className="section-padding bg-transparent transition-colors duration-300 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -237,7 +230,7 @@ const SkillsShowcase = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           viewport={{ once: true }}
           className="mb-20 md:mb-28 text-center max-w-3xl mx-auto"
         >
@@ -256,7 +249,7 @@ const SkillsShowcase = () => {
 
           <h2 className="text-4xl md:text-5xl lg:text-7xl font-black text-white tracking-tight mb-6">
             Technical{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400">
               Skills
             </span>
           </h2>

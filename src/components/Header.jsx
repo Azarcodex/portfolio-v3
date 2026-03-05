@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { useDarkMode } from "../hooks/useDarkMode";
-import profileImg from "../assets/profileAzar.JPG";
+// import profileImg from "../assets/profileAzar.JPG";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -83,19 +83,6 @@ const Header = () => {
           layout
           className="flex items-center gap-2 md:gap-4 p-2 md:p-2.5 rounded-full border border-white/20 dark:border-white/10 shadow-2xl backdrop-blur-2xl pointer-events-auto bg-white/70 dark:bg-slate-900/80 transition-shadow duration-300 hover:shadow-indigo-500/20"
         >
-          {/* Brand Avatar */}
-          <a href="#" className="flex-shrink-0 ml-1">
-            <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-indigo-500/50 hover:ring-indigo-500 transition-all p-0.5 bg-white dark:bg-slate-800">
-              <img
-                src={profileImg}
-                alt="Azarin"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </div>
-          </a>
-
-          <div className="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-1 hidden sm:block" />
-
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
