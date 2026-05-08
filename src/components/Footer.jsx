@@ -67,8 +67,8 @@ const Footer = () => {
             </div>
 
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
-              Crafting high-performance web architectures and AI-driven
-              solutions with precision and passion.
+              Crafting high-performance web solutions and digital products for
+              businesses with precision and passion.
             </p>
 
             <div className="flex items-center gap-4">

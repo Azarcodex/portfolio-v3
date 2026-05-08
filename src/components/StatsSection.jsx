@@ -280,8 +280,34 @@ const StatsSection = () => {
             className="text-slate-500 dark:text-slate-400 mt-4 max-w-2xl font-medium"
           >
             A real-time overview of my continuous coding activity and
-            problem-solving metrics across platforms.
+            freelance impact across various industries.
           </motion.p>
+        </div>
+
+        {/* Freelance Metrics Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          {[
+            { label: "Clients Served", value: "10+" },
+            { label: "Projects Delivered", value: "10+" },
+            { label: "Years Freelancing", value: "1+" },
+            { label: "Client Satisfaction", value: "100%" },
+          ].map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: i * 0.1 }}
+              viewport={{ once: true }}
+              className="glass-panel p-4 text-center group hover:border-indigo-500/30 transition-all duration-300"
+            >
+              <div className="text-2xl md:text-3xl font-black text-indigo-400 mb-1 group-hover:scale-110 transition-transform duration-300">
+                {stat.value}
+              </div>
+              <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         <div className="space-y-8">

@@ -47,7 +47,7 @@ const Hero = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-400"></span>
                 </span>
-                Available for new opportunities
+                Available for freelance work
               </span>
             </motion.div>
 
@@ -69,7 +69,7 @@ const Hero = () => {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-semibold text-slate-300 mb-6"
             >
-              Full-Stack Software Engineer
+              Freelance Full Stack Developer
             </motion.h2>
 
             <motion.p
@@ -78,16 +78,9 @@ const Hero = () => {
               transition={{ duration: 0.4, delay: 0.3 }}
               className="text-lg md:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl"
             >
-              I build scalable web applications and intuitive interfaces.
-              Specializing in the{" "}
-              <strong className="text-indigo-400 font-semibold">
-                MERN stack
-              </strong>{" "}
-              with a strong passion for integrating modern{" "}
-              <strong className="text-teal-400 font-semibold">
-                AI solutions
-              </strong>{" "}
-              into everyday products.
+              Helping businesses build powerful digital experiences. I turn ideas
+              into production-ready products for startups and small
+              businesses.
             </motion.p>
 
             <motion.div

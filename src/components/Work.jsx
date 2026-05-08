@@ -1,170 +1,161 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Github, Database, Layout, Sparkles } from "lucide-react";
-import blogImg from "../assets/blog.jpg";
-import moneytrackImg from "../assets/moneytrack.jpg";
-import predictImg from "../assets/predict.jpg";
+import React from "react";
+import { motion } from "framer-motion";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 const projects = [
   {
-    title: "React Blog Platform",
-    shortDesc: "Redux & Firebase",
-    description:
-      "A feature-rich blogging application with React and Redux Toolkit. Integrated Firebase for secure authentication.",
-    tags: ["React", "Firebase", "Redux"],
-    links: { github: "https://github.com/Azarcodex/BlogApp" },
-    image: blogImg,
-    color: "from-blue-600 to-indigo-600",
-    icon: <Layout className="w-3.5 h-3.5" />,
+    id: 1,
+    title: "FYM – Fitness & Gym App",
+    description: "A modern fitness tracking and gym management web app.",
+    tags: ["React", "Tailwind", "Vercel"],
+    live: "https://corefitness-one.vercel.app",
+    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=640&h=400&auto=format&fit=crop",
   },
   {
-    title: "Food Expense Tracker",
-    shortDesc: "MERN Stack",
-    description:
-      "Manage food budgets with real-time calculations and MongoDB persistence.",
-    tags: ["MERN", "Node.js", "Chart.js"],
-    links: { github: "https://github.com/Azarcodex/Food-Expense-Track" },
-    image: moneytrackImg,
-    color: "from-emerald-500 to-teal-600",
-    icon: <Database className="w-3.5 h-3.5" />,
+    id: 2,
+    title: "Gym E-Commerce",
+    description: "Full-featured e-commerce store for gym equipment and supplements.",
+    tags: ["React", "E-Commerce", "Vercel"],
+    live: "https://badger-sigma.vercel.app/",
+    image: "https://images.unsplash.com/photo-1581009146145-b5ef03a74715?q=80&w=640&h=400&auto=format&fit=crop",
   },
   {
-    title: "Disease Prediction",
-    shortDesc: "ML & Django Health AI",
-    description:
-      "AI-driven application predicting health risks via machine learning.",
-    tags: ["Django", "Python", "ML"],
-    links: {
-      github: "https://github.com/Azarcodex/Lifestyledisease_predicting",
-    },
-    image: predictImg,
-    color: "from-rose-500 to-pink-600",
-    icon: <Sparkles className="w-3.5 h-3.5" />,
+    id: 3,
+    title: "Mr. Crispy – Restaurant Site",
+    description: "A sleek restaurant website with menu, branding and online presence.",
+    tags: ["React", "UI/UX", "Vercel"],
+    live: "https://mrcrispy.vercel.app/",
+    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=640&h=400&auto=format&fit=crop",
+  },
+  {
+    id: 4,
+    title: "Adam Clinic – Clinic Booking System",
+    description: "Online appointment booking system for a medical clinic.",
+    tags: ["React", "Booking System", "Vercel"],
+    live: "https://adam-clinic.vercel.app/",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=640&h=400&auto=format&fit=crop",
   },
 ];
 
-const Work = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
+const ProjectCard = ({ project }) => {
   return (
-    <section
-      id="work"
-      className="section-padding bg-transparent transition-colors duration-300 relative overflow-hidden"
-    >
-      <div className="absolute top-2 -left-2 text-[5rem] md:text-[6rem] font-bold text-slate-200/20 dark:text-slate-900/30 pointer-events-none select-none tracking-tighter">
-        WORK
-      </div>
-
-      <div className="max-w-5xl mx-auto px-6 lg:px-8 relative z-10">
-        <div className="mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="flex items-center gap-2 mb-1"
-          >
-            <span className="w-6 h-0.5 bg-indigo-600 rounded-full"></span>
-            <span className="text-indigo-600 dark:text-indigo-400 font-bold text-[9px] tracking-widest uppercase">
-              Portfolio
-            </span>
-          </motion.div>
-          <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-            Featured{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-purple-500">
-              Work.
-            </span>
-          </h2>
+    <div className="w-[320px] md:w-[360px] h-[420px] shrink-0 group">
+      <div className="glass-panel h-full overflow-hidden flex flex-col transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-2xl group-hover:shadow-indigo-500/20 group-hover:border-indigo-500/30">
+        {/* Project Image */}
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
-          {/* Compact Navigation */}
-          <div className="lg:col-span-4 order-2 lg:order-1 flex lg:flex-col gap-1.5 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-hide">
-            {projects.map((project, index) => (
-              <button
-                key={index}
-                onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => setActiveIndex(index)}
-                className={`p-4 rounded-xl transition-all duration-300 border shrink-0 w-[200px] lg:w-full text-left ${
-                  activeIndex === index
-                    ? "glass-card border-indigo-500/40 shadow-lg scale-[1.02]"
-                    : "bg-transparent border-transparent hover:bg-slate-800/20 hover:scale-[1.02] hover:border-slate-700"
-                }`}
+        {/* Project Info */}
+        <div className="p-6 flex flex-col flex-grow">
+          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-sm text-slate-400 mb-6 line-clamp-2">
+            {project.description}
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {project.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-[10px] font-bold text-indigo-300 uppercase tracking-wider"
               >
-                <div className="flex items-center gap-2.5">
-                  <div
-                    className={`w-6 h-6 rounded flex items-center justify-center ${activeIndex === index ? "bg-indigo-600 text-white" : "bg-slate-200 dark:bg-slate-800 text-slate-500"}`}
-                  >
-                    {project.icon}
-                  </div>
-                  <div className="min-w-0">
-                    <h3
-                      className={`font-bold text-xs truncate ${activeIndex === index ? "text-indigo-600 dark:text-indigo-400" : "text-slate-600 dark:text-slate-400"}`}
-                    >
-                      {project.title}
-                    </h3>
-                    <p className="text-[8px] text-slate-400 uppercase tracking-tight">
-                      {project.shortDesc}
-                    </p>
-                  </div>
-                </div>
-              </button>
+                {tag}
+              </span>
             ))}
           </div>
 
-          {/* Compact Display Area */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="lg:col-span-8 order-1 lg:order-2"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.2 }}
-                className="glass-card overflow-hidden"
-              >
-                {/* Slimmer Aspect Ratio */}
-                <div className="relative aspect-video overflow-hidden rounded-t-2xl">
-                  <img
-                    src={projects[activeIndex].image}
-                    alt={projects[activeIndex].title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="p-6 md:p-8">
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {projects[activeIndex].tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 text-[7px] font-bold rounded uppercase tracking-tighter border border-indigo-100 dark:border-indigo-800/40"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed mb-4 max-w-xl">
-                    {projects[activeIndex].description}
-                  </p>
-
-                  <a
-                    href={projects[activeIndex].links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-linear-to-r ${projects[activeIndex].color} text-white text-[9px] font-bold hover:brightness-105 active:scale-95 transition-all`}
-                  >
-                    GitHub Source <Github size={12} />
-                  </a>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+          {/* Action Button */}
+          <div className="mt-auto">
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-white group/btn"
+            >
+              <span className="relative">
+                Live Demo
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-indigo-500 transition-all duration-300 group-hover/btn:w-full"></span>
+              </span>
+              <ArrowRight
+                size={14}
+                className="group-hover/btn:translate-x-1 transition-transform"
+              />
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const Work = () => {
+  // Duplicate projects for infinite scroll
+  const duplicatedProjects = [...projects, ...projects];
+
+  return (
+    <section id="work" className="section-padding overflow-hidden bg-transparent">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-8 h-px bg-indigo-500"></span>
+              <span className="text-indigo-400 text-[10px] font-black uppercase tracking-[0.3em]">
+                Featured Projects
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+              Selected <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-teal-400">
+                Work.
+              </span>
+            </h2>
+          </div>
+          <p className="max-w-md text-slate-400 text-sm md:text-base font-medium">
+            A collection of production-ready digital solutions delivered for
+            clients in fitness, e-commerce, and healthcare.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Carousel Container */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="relative"
+      >
+        {/* Gradient Overlays for smooth edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-r from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-l from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
+
+        {/* Scrolling Content */}
+        <div className="flex gap-6 animate-scroll w-max px-6">
+          {duplicatedProjects.map((project, index) => (
+            <ProjectCard key={`${project.id}-${index}`} project={project} />
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Responsive Note for Mobile */}
+      <div className="mt-12 text-center md:hidden">
+        <p className="text-slate-500 text-[10px] uppercase tracking-widest font-bold">
+          Swipe to explore or wait to scroll
+        </p>
       </div>
     </section>
   );

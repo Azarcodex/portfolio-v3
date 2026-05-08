@@ -254,8 +254,9 @@ const SkillsShowcase = () => {
             </span>
           </h2>
           <p className="text-slate-400 text-sm md:text-lg leading-relaxed px-4">
-            A comprehensive overview of my technical stack, tools, and areas of
-            expertise built through continuous learning and hands-on experience.
+            Delivering custom web solutions for startups and small businesses.
+            With over 10+ clients served, I specialize in turning complex ideas
+            into production-ready products.
           </p>
         </motion.div>
 

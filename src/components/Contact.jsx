@@ -75,15 +75,16 @@ const Contact = () => {
             className="w-full lg:w-[45%] text-center lg:text-left"
           >
             <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight tracking-tighter mb-6 italic">
-              Let's spark <br />
+              Let's build something <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-teal-500">
-                Innovation.
+                Together.
               </span>
             </h2>
 
             <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg mb-0 font-medium max-w-xl mx-auto lg:mx-0">
-              Ready to transform your vision into a scalable digital reality?
-              Fill out the form below and I'll get back to you within 24 hours.
+              Ready to transform your vision into a production-ready reality?
+              Available for freelance work—let's discuss how we can build your
+              next digital product.
             </p>
           </motion.div>
 
@@ -156,7 +157,7 @@ const Contact = () => {
                     <Loader2 className="animate-spin" size={16} />
                   ) : (
                     <>
-                      Send Message
+                      Start Collaboration
                       <Send size={14} />
                     </>
                   )}
