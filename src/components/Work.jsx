@@ -1,5 +1,10 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState, useEffect } from "react";
+import {
+  motion,
+  useAnimationControls,
+  useMotionValue,
+  useAnimationFrame,
+} from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 
 const projects = [
@@ -9,7 +14,8 @@ const projects = [
     description: "A modern fitness tracking and gym management web app.",
     tags: ["React", "Tailwind", "Vercel"],
     live: "https://corefitness-one.vercel.app",
-    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=640&h=400&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=640&h=400&auto=format&fit=crop",
   },
   {
     id: 2,
@@ -17,15 +23,18 @@ const projects = [
     description: "Full-featured e-commerce store for gym equipment and supplements.",
     tags: ["React", "E-Commerce", "Vercel"],
     live: "https://badger-sigma.vercel.app/",
-    image: "https://images.unsplash.com/photo-1581009146145-b5ef03a74715?q=80&w=640&h=400&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1581009146145-b5ef03a74715?q=80&w=640&h=400&auto=format&fit=crop",
   },
   {
     id: 3,
     title: "Mr. Crispy – Restaurant Site",
-    description: "A sleek restaurant website with menu, branding and online presence.",
+    description:
+      "A sleek restaurant website with menu, branding and online presence.",
     tags: ["React", "UI/UX", "Vercel"],
     live: "https://mrcrispy.vercel.app/",
-    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=640&h=400&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=640&h=400&auto=format&fit=crop",
   },
   {
     id: 4,
@@ -33,7 +42,8 @@ const projects = [
     description: "Online appointment booking system for a medical clinic.",
     tags: ["React", "Booking System", "Vercel"],
     live: "https://adam-clinic.vercel.app/",
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=640&h=400&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=640&h=400&auto=format&fit=crop",
   },
 ];
 
@@ -98,10 +108,40 @@ const ProjectCard = ({ project }) => {
 
 const Work = () => {
   // Duplicate projects for infinite scroll
-  const duplicatedProjects = [...projects, ...projects];
+  const duplicatedProjects = [...projects, ...projects, ...projects];
+  const carouselRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const x = useMotionValue(0);
+
+  // Velocity of auto-scroll
+  const speed = 0.5;
+
+  useAnimationFrame((t, delta) => {
+    if (!isDragging && !isHovered) {
+      const currentX = x.get();
+      const moveBy = speed * (delta / 16); // Normalize by frame rate
+      let nextX = currentX - moveBy;
+
+      // Wrap around logic
+      if (carouselRef.current) {
+        const totalWidth = carouselRef.current.scrollWidth;
+        const halfWidth = totalWidth / 3; // We have 3 copies for seamless wrap
+        if (nextX <= -halfWidth * 2) {
+          nextX += halfWidth;
+        } else if (nextX >= 0) {
+          nextX -= halfWidth;
+        }
+      }
+      x.set(nextX);
+    }
+  });
 
   return (
-    <section id="work" className="section-padding overflow-hidden bg-transparent">
+    <section
+      id="work"
+      className="section-padding overflow-hidden bg-transparent"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -138,17 +178,27 @@ const Work = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         viewport={{ once: true }}
         className="relative"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Gradient Overlays for smooth edges */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-r from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-linear-to-l from-[#0f172a] to-transparent z-10 pointer-events-none"></div>
 
         {/* Scrolling Content */}
-        <div className="flex gap-6 animate-scroll w-max px-6">
+        <motion.div
+          ref={carouselRef}
+          className="flex gap-6 w-max px-6 cursor-grab active:cursor-grabbing"
+          style={{ x }}
+          drag="x"
+          onDragStart={() => setIsDragging(true)}
+          onDragEnd={() => setIsDragging(false)}
+          dragElastic={0.1}
+        >
           {duplicatedProjects.map((project, index) => (
             <ProjectCard key={`${project.id}-${index}`} project={project} />
           ))}
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Responsive Note for Mobile */}
