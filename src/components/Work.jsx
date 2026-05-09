@@ -56,10 +56,10 @@ const duplicatedProjects = Array.from({ length: COPIES }, () => projects).flat()
 
 const ProjectCard = ({ project }) => {
   return (
-    <div className="w-[320px] md:w-[420px] h-[480px] shrink-0 group">
+    <div className="w-[320px] md:w-[420px] h-[540px] shrink-0 group">
       <div className="glass-panel h-full overflow-hidden flex flex-col transition-all duration-700 group-hover:-translate-y-4 group-hover:shadow-[0_30px_60px_rgba(79,70,229,0.25)] group-hover:border-indigo-500/50">
         {/* Project Image */}
-        <div className="relative h-60 overflow-hidden">
+        <div className="relative h-52 overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
@@ -79,15 +79,15 @@ const ProjectCard = ({ project }) => {
         <div className="p-8 flex flex-col flex-grow relative overflow-hidden bg-gradient-to-b from-transparent to-slate-900/20">
           <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-indigo-500/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
 
-          <h3 className="text-2xl md:text-3xl font-black text-white mb-3 group-hover:text-indigo-300 transition-colors tracking-tighter leading-none">
+          <h3 className="text-2xl md:text-3xl font-black text-white mb-3 group-hover:text-indigo-300 transition-colors tracking-tighter leading-tight">
             {project.title}
           </h3>
-          <p className="text-sm text-slate-400 mb-8 line-clamp-2 font-medium leading-relaxed">
+          <p className="text-sm text-slate-400 mb-6 line-clamp-3 font-medium leading-relaxed">
             {project.description}
           </p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2.5 mb-8">
+          <div className="flex flex-wrap gap-2.5 mb-6">
             {project.tags.map((tag, i) => (
               <span
                 key={i}
