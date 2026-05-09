@@ -1,14 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import {
   motion,
-  useAnimationControls,
   useMotionValue,
   useAnimationFrame,
-  useTransform,
 } from "framer-motion";
-import { ExternalLink, ArrowRight, Sparkle } from "lucide-react";
+import { ArrowRight, Sparkle } from "lucide-react";
 
-// Import local assets
 import gymAppImg from "../assets/gym-app.png";
 import gymShopImg from "../assets/gym-shop.png";
 import restaurantImg from "../assets/restaurant.png";
@@ -53,6 +50,10 @@ const projects = [
   },
 ];
 
+// Use 3 copies: render middle copy, wrap to it from either side
+const COPIES = 3;
+const duplicatedProjects = Array.from({ length: COPIES }, () => projects).flat();
+
 const ProjectCard = ({ project }) => {
   return (
     <div className="w-[320px] md:w-[420px] h-[480px] shrink-0 group">
@@ -65,7 +66,7 @@ const ProjectCard = ({ project }) => {
             className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-indigo-500/10 transition-colors duration-700"></div>
-          
+
           {/* Badge */}
           <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 scale-90 group-hover:scale-100">
             <div className="bg-indigo-600/90 backdrop-blur-xl text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-lg border border-white/20">
@@ -75,8 +76,7 @@ const ProjectCard = ({ project }) => {
         </div>
 
         {/* Project Info */}
-        <div className="p-8 flex flex-col flex-grow relative overflow-hidden bg-linear-to-b from-transparent to-slate-900/20">
-          {/* Subtle background glow on hover */}
+        <div className="p-8 flex flex-col flex-grow relative overflow-hidden bg-gradient-to-b from-transparent to-slate-900/20">
           <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-indigo-500/10 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
 
           <h3 className="text-2xl md:text-3xl font-black text-white mb-3 group-hover:text-indigo-300 transition-colors tracking-tighter leading-none">
@@ -99,7 +99,7 @@ const ProjectCard = ({ project }) => {
           </div>
 
           {/* Action Button */}
-          <div className="mt-auto pt-6 border-t border-white/5 group-hover:border-indigo-500/20 transition-colors duration-500">
+          <div className="mt-auto pt-6 border-t border-white/5 group-hover:border-indigo-500/20 transition-all duration-500">
             <a
               href={project.live}
               target="_blank"
@@ -125,47 +125,65 @@ const ProjectCard = ({ project }) => {
 };
 
 const Work = () => {
-  // Duplicate projects for infinite scroll - Use 6 sets for extreme wide screens
-  const duplicatedProjects = [...projects, ...projects, ...projects, ...projects, ...projects, ...projects];
   const carouselRef = useRef(null);
-  const containerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [ready, setReady] = useState(false);
   const x = useMotionValue(0);
 
-  // Velocity of auto-scroll
   const speed = 0.6;
+  // Track x in a ref so useAnimationFrame always reads fresh value
+  const xRef = useRef(0);
+  useEffect(() => {
+    const unsub = x.on("change", (v) => { xRef.current = v; });
+    return unsub;
+  }, [x]);
 
-  useAnimationFrame((t, delta) => {
-    if (!isDragging && !isHovered) {
-      const currentX = x.get();
-      const moveBy = speed * (delta / 16); // Normalize by frame rate
-      let nextX = currentX - moveBy;
+  // Initialize: start at the first copy so wrapping is symmetric
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    // Wait one frame so layout is complete
+    requestAnimationFrame(() => {
+      const setWidth = el.scrollWidth / COPIES;
+      x.set(-setWidth); // Start at copy index 1 (middle)
+      xRef.current = -setWidth;
+      setReady(true);
+    });
+  }, [x]);
 
-      // Wrap around logic
-      if (carouselRef.current) {
-        const totalWidth = carouselRef.current.scrollWidth;
-        const setWidth = totalWidth / 6; // Width of one set
-        
-        // We want to stay roughly in the middle sets (between set 2 and 4)
-        if (nextX <= -setWidth * 4) {
-          nextX += setWidth;
-        } else if (nextX >= -setWidth) {
-          nextX -= setWidth;
-        }
-      }
-      x.set(nextX);
+  useAnimationFrame((_, delta) => {
+    if (!ready) return;
+    const el = carouselRef.current;
+    if (!el || isDragging || isHovered) return;
+
+    const setWidth = el.scrollWidth / COPIES;
+    let nextX = xRef.current - speed * (delta / 16);
+
+    // When we've scrolled past the last copy start, jump back by one set
+    if (nextX <= -setWidth * (COPIES - 1)) {
+      nextX += setWidth;
     }
+    // Guard against dragging too far right
+    if (nextX > 0) {
+      nextX = -setWidth;
+    }
+
+    x.set(nextX);
   });
 
-  // Set initial position to the middle to avoid "start" edge
-  useEffect(() => {
-    if (carouselRef.current) {
-      const totalWidth = carouselRef.current.scrollWidth;
-      const setWidth = totalWidth / 6;
-      x.set(-setWidth * 2);
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    const el = carouselRef.current;
+    if (!el) return;
+    const setWidth = el.scrollWidth / COPIES;
+    const currentX = xRef.current;
+    if (currentX <= -setWidth * (COPIES - 1)) {
+      x.set(currentX + setWidth);
+    } else if (currentX > 0) {
+      x.set(-setWidth);
     }
-  }, [x]);
+  };
 
   return (
     <section
@@ -186,7 +204,7 @@ const Work = () => {
         >
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-px bg-linear-to-r from-indigo-500 to-transparent"></div>
+              <div className="w-12 h-px bg-gradient-to-r from-indigo-500 to-transparent"></div>
               <span className="text-indigo-400 text-[11px] font-black uppercase tracking-[0.5em] flex items-center gap-2">
                 <Sparkle size={10} className="fill-indigo-400" />
                 Featured Portfolio
@@ -194,7 +212,7 @@ const Work = () => {
             </div>
             <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.85]">
               Digital <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 via-indigo-200 to-teal-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-200 to-teal-300">
                 Craftsmanship.
               </span>
             </h2>
@@ -202,7 +220,7 @@ const Work = () => {
           <div className="max-w-sm space-y-6">
             <div className="w-full h-px bg-white/5"></div>
             <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed tracking-tight italic">
-              "Every project is an opportunity to push the boundaries of digital 
+              "Every project is an opportunity to push the boundaries of digital
               experience and technical performance."
             </p>
           </div>
@@ -210,15 +228,14 @@ const Work = () => {
       </div>
 
       {/* Carousel Container */}
-      <div 
-        ref={containerRef}
+      <div
         className="relative group/carousel"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Gradient Overlays for smooth edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-80 bg-linear-to-r from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-80 bg-linear-to-l from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
+        {/* Gradient Overlays */}
+        <div className="absolute left-0 top-0 bottom-0 w-32 md:w-80 bg-gradient-to-r from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-32 md:w-80 bg-gradient-to-l from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
 
         {/* Scrolling Content */}
         <motion.div
@@ -226,21 +243,9 @@ const Work = () => {
           className="flex gap-10 w-max px-24 cursor-grab active:cursor-grabbing py-12"
           style={{ x }}
           drag="x"
+          dragConstraints={{ left: -Infinity, right: 0 }}
           onDragStart={() => setIsDragging(true)}
-          onDragEnd={() => {
-            setIsDragging(false);
-            // Handle wrap around after drag too
-            if (carouselRef.current) {
-              const currentX = x.get();
-              const totalWidth = carouselRef.current.scrollWidth;
-              const setWidth = totalWidth / 6;
-              if (currentX <= -setWidth * 4) {
-                x.set(currentX + setWidth);
-              } else if (currentX >= -setWidth) {
-                x.set(currentX - setWidth);
-              }
-            }
-          }}
+          onDragEnd={handleDragEnd}
           dragElastic={0.05}
           dragTransition={{ power: 0.3, timeConstant: 250 }}
         >
@@ -252,7 +257,7 @@ const Work = () => {
 
       {/* Navigation Instruction */}
       <div className="mt-20 text-center">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
@@ -273,5 +278,3 @@ const Work = () => {
 };
 
 export default Work;
- Work;
-
