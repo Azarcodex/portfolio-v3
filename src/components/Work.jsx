@@ -51,7 +51,7 @@ const projects = [
 ];
 
 // Use 3 copies: render middle copy, wrap to it from either side
-const COPIES = 3;
+const COPIES = 10;
 const duplicatedProjects = Array.from({ length: COPIES }, () => projects).flat();
 
 const ProjectCard = ({ project }) => {
@@ -132,22 +132,21 @@ const Work = () => {
   const x = useMotionValue(0);
 
   const speed = 0.6;
-  // Track x in a ref so useAnimationFrame always reads fresh value
   const xRef = useRef(0);
   useEffect(() => {
     const unsub = x.on("change", (v) => { xRef.current = v; });
     return unsub;
   }, [x]);
 
-  // Initialize: start at the first copy so wrapping is symmetric
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
-    // Wait one frame so layout is complete
     requestAnimationFrame(() => {
       const setWidth = el.scrollWidth / COPIES;
-      x.set(-setWidth); // Start at copy index 1 (middle)
-      xRef.current = -setWidth;
+      // Start in the middle (e.g. 4th copy)
+      const startPos = -setWidth * 4;
+      x.set(startPos);
+      xRef.current = startPos;
       setReady(true);
     });
   }, [x]);
@@ -160,13 +159,11 @@ const Work = () => {
     const setWidth = el.scrollWidth / COPIES;
     let nextX = xRef.current - speed * (delta / 16);
 
-    // When we've scrolled past the last copy start, jump back by one set
-    if (nextX <= -setWidth * (COPIES - 1)) {
+    // Wrap around to keep in the middle range (between 3rd and 7th copy)
+    if (nextX <= -setWidth * 7) {
       nextX += setWidth;
-    }
-    // Guard against dragging too far right
-    if (nextX > 0) {
-      nextX = -setWidth;
+    } else if (nextX >= -setWidth * 2) {
+      nextX -= setWidth;
     }
 
     x.set(nextX);
@@ -178,10 +175,12 @@ const Work = () => {
     if (!el) return;
     const setWidth = el.scrollWidth / COPIES;
     const currentX = xRef.current;
-    if (currentX <= -setWidth * (COPIES - 1)) {
+    
+    // Safety wrap after drag
+    if (currentX <= -setWidth * 7) {
       x.set(currentX + setWidth);
-    } else if (currentX > 0) {
-      x.set(-setWidth);
+    } else if (currentX >= -setWidth * 2) {
+      x.set(currentX - setWidth);
     }
   };
 
@@ -237,22 +236,24 @@ const Work = () => {
         <div className="absolute left-0 top-0 bottom-0 w-32 md:w-80 bg-gradient-to-r from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-32 md:w-80 bg-gradient-to-l from-[#0f172a] via-[#0f172a]/90 to-transparent z-10 pointer-events-none"></div>
 
-        {/* Scrolling Content */}
-        <motion.div
-          ref={carouselRef}
-          className="flex gap-10 w-max px-24 cursor-grab active:cursor-grabbing py-12"
-          style={{ x }}
-          drag="x"
-          dragConstraints={{ left: -Infinity, right: 0 }}
-          onDragStart={() => setIsDragging(true)}
-          onDragEnd={handleDragEnd}
-          dragElastic={0.05}
-          dragTransition={{ power: 0.3, timeConstant: 250 }}
-        >
-          {duplicatedProjects.map((project, index) => (
-            <ProjectCard key={`${project.id}-${index}`} project={project} />
-          ))}
-        </motion.div>
+        {/* Scrolling Content Wrapper with Padding */}
+        <div className="overflow-visible px-24">
+          <motion.div
+            ref={carouselRef}
+            className="flex gap-10 w-max py-12 cursor-grab active:cursor-grabbing"
+            style={{ x }}
+            drag="x"
+            dragConstraints={{ left: -10000, right: 10000 }} // Wide constraints
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={handleDragEnd}
+            dragElastic={0.05}
+            dragTransition={{ power: 0.3, timeConstant: 250 }}
+          >
+            {duplicatedProjects.map((project, index) => (
+              <ProjectCard key={`${project.id}-${index}`} project={project} />
+            ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* Navigation Instruction */}
