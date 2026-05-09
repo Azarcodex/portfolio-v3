@@ -13,7 +13,7 @@ const educationData = [
   {
     id: 1,
     year: "2025 - Present",
-    title: "Software Engineer Trainee",
+    title: "Software Engineer",
     institution: "Brototype",
     description:
       "Accelerated industrial residency focusing on full-stack architecture, MERN ecosystem, and distributed systems. Engineering production-grade initiatives with high availability.",
