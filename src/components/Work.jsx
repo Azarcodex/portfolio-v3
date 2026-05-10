@@ -17,7 +17,7 @@ const projects = [
     title: "FYM – Fitness & Gym App",
     description:
       "A premium fitness tracking ecosystem with real-time stats and personalized training plans.",
-    tags: ["React", "Tailwind", "Framer Motion"],
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     live: "https://corefitness-one.vercel.app",
     image: gymAppImg,
   },
@@ -26,7 +26,7 @@ const projects = [
     title: "Gym E-Commerce",
     description:
       "High-performance storefront for premium gym equipment and supplements with seamless checkout.",
-    tags: ["React", "E-Commerce", "UI/UX"],
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     live: "https://badger-sigma.vercel.app/",
     image: gymShopImg,
   },
@@ -35,7 +35,7 @@ const projects = [
     title: "Mr. Crispy – Restaurant",
     description:
       "A sophisticated culinary platform with dynamic menu management and brand storytelling.",
-    tags: ["React", "UI/UX", "Brand"],
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     live: "https://mrcrispy.vercel.app/",
     image: restaurantImg,
   },
@@ -44,7 +44,7 @@ const projects = [
     title: "Adam Clinic – Booking",
     description:
       "High-reliability medical appointment system with intuitive scheduling and patient flow.",
-    tags: ["React", "Healthcare", "UX"],
+    tags: ["Next.js", "TypeScript", "Tailwind", "Postgres"],
     live: "https://adam-clinic.vercel.app/",
     image: clinicImg,
   },
@@ -204,15 +204,15 @@ const Work = () => {
           <div className="max-w-2xl">
             <div className="flex items-center gap-4 mb-8">
               <div className="w-12 h-px bg-gradient-to-r from-indigo-500 to-transparent"></div>
-              <span className="text-indigo-400 text-[11px] font-black uppercase tracking-[0.5em] flex items-center gap-2">
-                <Sparkle size={10} className="fill-indigo-400" />
-                Featured Portfolio
+              <span className="text-indigo-400 text-[11px] font-black uppercase tracking-[0.5em] flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.6)] animate-pulse"></div>
+                Explore My Works
               </span>
             </div>
             <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-[0.85]">
-              Digital <br />
+              Strategic <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-200 to-teal-300">
-                Craftsmanship.
+                Innovation.
               </span>
             </h2>
           </div>
